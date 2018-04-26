@@ -35,7 +35,7 @@ class ZCA(BaseEstimator, TransformerMixin):
         X = as_float_array(X, copy=self.copy)
         self.mean_ = np.mean(X, axis=0)
         X = X - self.mean_
-        sigma = np.dot(X.T, X) / X.shape[1]
+        sigma = np.dot(X.T, X) / (X.shape[0] - 1)
         U, S, V = np.linalg.svd(sigma)
         tmp = np.dot(U, np.diag(1 / np.sqrt(S + self.regularization)))
         self.components_ = np.dot(tmp, U.T)
